@@ -11,7 +11,6 @@ CONFIG -= app_bundle
 
 SOURCES += \
         main.cpp \
-        schachbrett.cpp \
         simpleClient.cpp \
         simpleServer.cpp
 
@@ -21,7 +20,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    schachbrett.h \
     simpleClient.h \
     simpleServer.h
 

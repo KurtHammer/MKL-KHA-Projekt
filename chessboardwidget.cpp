@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "chessboardwidget.h"
+#include "player.h"
 
 ChessboardWidget::ChessboardWidget(QWidget *parent) : QWidget(parent) {
     QGridLayout *layout = new QGridLayout(this);
@@ -86,7 +87,7 @@ ChessboardWidget::ChessboardWidget(QWidget *parent) : QWidget(parent) {
     QPushButton *surrenderButton = new QPushButton("Aufgeben", this);
     layout->addWidget(surrenderButton, 1, 8); // Zum Layout hinzufügen, Position (8, 1)
 
-    // Hier könntest du die Signale und Slots für die Buttons verbinden
+    connect(surrenderButton, &QPushButton::clicked, this, &ChessboardWidget::surrenderGame);
 
 
 }

@@ -1,16 +1,15 @@
 #ifndef SPIEL_H
 #define SPIEL_H
+
 #include "board.h"
 
-
-class spiel
-{
+class spiel {
 public:
     spiel();
     void startSpiel();
     void endSpiel();
 private:
-    board meinBrett;
+    board brett;
     bool isGameOver;
     int currentPlayer;
 
@@ -23,3 +22,4 @@ private:
 };
 
 #endif // SPIEL_H
+

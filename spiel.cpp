@@ -13,8 +13,7 @@ spiel::spiel()
 }
 
 void spiel::startSpiel(){
-    board brett;
-    brett.setupStartposition();
+    this->brett.setupStartposition();
     isGameOver = false;
     int currentPlayer = 1;
     int zugNummer = 0;
@@ -44,6 +43,8 @@ void spiel::startSpiel(){
         // Eingabe des Spielers abfragen
         std::cout << "Geben Sie die Startposition (x y) und die Endposition (x y) ein: ";
         std::cin >> startX >> startY >> endX >> endY;
+
+        std::cout << "Typ der Startfigur 111: " << brett.getFigurAtPosition(startX, startY).getFigurName() << std::endl;
 
         // Zug überprüfen und durchführen
         if (isValidMove(startX, startY, endX, endY, currentPlayer, zugNummer)) {
@@ -83,11 +84,14 @@ void spiel::startSpiel(){
 bool spiel::isValidMove(int startX, int startY, int endX, int endY, int currentPlayer, int zugNummer) {
     // Start und Endposition im Spielfeld
     if (startX >= 0 && startX <= 7 && startY >= 0 && startY <= 7 && endX >= 0 && endX <= 7 && endY >= 0 && endY <= 7) {
-        figur startFigur = meinBrett.getFigurAtPosition(startX, startY);
-        figur endFigur = meinBrett.getFigurAtPosition(endX, endY);
-        std::cout << "Figurtyp auf der Startposition: " << startFigur.getFigurName();
+        figur startFigur = brett.getFigurAtPosition(startX, startY);
+        figur endFigur = brett.getFigurAtPosition(endX, endY);
 
-        // Startposition leer?
+        // Debugging-Ausgabe: Startposition und Figurtyp
+        std::cout << "Startposition: (" << startX << ", " << startY << ")" << std::endl;
+        std::cout << "Typ der Startfigur 111: " << brett.getFigurAtPosition(startX, startY).getFigurName() << std::endl;
+
+        // Überprüfen, ob die Startposition leer ist
         if (startFigur.figurTyp == figur::LEER) {
             std::cout << "Feld leer" << std::endl;
             return false;
@@ -101,8 +105,8 @@ bool spiel::isValidMove(int startX, int startY, int endX, int endY, int currentP
 
         // Bauern Move prüfen
         if (startFigur.figurTyp == figur::BAUER) {
-                // Aufruf der validPawnMove-Funktion für den Bauern
-                return validPawnMove(startX, startY, endX, endY, currentPlayer, zugNummer);
+            // Aufruf der validPawnMove-Funktion für den Bauern
+            return validPawnMove(startX, startY, endX, endY, currentPlayer, zugNummer);
         }
         return true;
     } else {
@@ -112,7 +116,7 @@ bool spiel::isValidMove(int startX, int startY, int endX, int endY, int currentP
 }
 
 bool spiel::validPawnMove(int startX, int startY, int endX, int endY, int currentPlayer, int zugNummer){
-    figur startFigur = meinBrett.getFigurAtPosition(startX, startY);
+    figur startFigur = brett.getFigurAtPosition(startX, startY);
 
     // Überprüfen, ob der Spieler seine eigene Figur bewegt
     if ((startFigur.istSchwarz && currentPlayer == 1) || (!startFigur.istSchwarz && currentPlayer == 2)) {
@@ -160,5 +164,5 @@ bool spiel::isDraw() {
 }
 
 void spiel::endSpiel() {
-    meinBrett.resetBoard(); // Setze das Spielbrett zurück
+    brett.resetBoard(); // Setze das Spielbrett zurück
 }

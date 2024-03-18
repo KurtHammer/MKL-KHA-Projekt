@@ -83,14 +83,14 @@ void board::movePiece(int startX, int startY, int endX, int endY) {
 
     // Figur von der Startposition holen
     figur& startPiece = brett[startY][startX];
-    std::cout << "Startfigur: " << startPiece.getFigurName() << std::endl;
+     std::cout << "Startfigur vor dem Verschieben: " << startPiece.getFigurName() << std::endl;
 
     // Figur von der Endposition holen
     figur& endPiece = brett[endY][endX];
     std::cout << "Endfigur: " << endPiece.getFigurName() << std::endl;
 
     // Bewege die Figur zur Zielposition
-    endPiece = startPiece;
+    endPiece = std::move(startPiece);
     endPiece.setPosition(endX, endY);
 
     // Setze die Startposition auf LEER
